@@ -1,6 +1,6 @@
 # C言語で実装したレイトレーシングエンジン
 
-C言語で`.rt`ファイルのレンダリングを行うレイトレーシングエンジン。
+C言語で`.rt`ファイルのレンダリングを行うレイトレーシングエンジン
 
 カメラからピクセルごとにレイを生成し、シーン内オブジェクトとの交差判定を行い、Phongライティングモデルで色を決定するレンダリングパイプラインを実装した。球体・平面・円柱のプリミティブに対応し、再帰レイトレーシング（最大深度5）によって反射・屈折を表現。拡張性を意識した設計により、Diffuseに加えてMirror・Metal・Glassの4種類のマテリアルを実装した。
 
@@ -84,10 +84,3 @@ $ ./miniRT <scene.rt>
 
 	参考箇所: `.rt` ファイルのフォーマット、Phong反射モデル（環境光・拡散反射・鏡面反射）の実装、平面・球・円柱の交差判定、影の計算
 	ファイル名: src/init/, src/lighting/apply_diffuse.c, src/lighting/apply_specular.c, src/render/intersect_pl.c, src/render/intersect_cy.c
-
-* The Textbook of RayTracing @TDU（東京電機大学のレイトレーシング講義資料） (https://knzw.tech/raytracing/)
-
-	参考箇所: ベクトル方程式、レイの定義、Phongの反射モデルの導出
-	 ファイル名: src/lighting/calc_lighting.c, src/math_original/
-
-☆要確認：実際に直接参照したか、それともJUN's Blog経由で得た知識か（直接参照していなければ削除）
