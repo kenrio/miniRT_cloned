@@ -1,11 +1,15 @@
-# C言語で実装したレイトレーシングエンジン
+# miniRT (ray tracing engine)
 
 開発リポジトリ: https://github.com/kenrio/miniRT
+
+---
 
 ![](/screenshots/Screenshot%20from%202025-06-30%2017-20-38.png "")
 ![](/screenshots/Screenshot%20from%202025-06-30%2017-21-17.png "")
 
-C言語で`.rt`ファイルのレンダリングを行うレイトレーシングエンジン
+---
+
+**C言語で`.rt`ファイルのレンダリングを行うレイトレーシングエンジン**
 
 カメラからピクセルごとにレイを生成し、シーン内オブジェクトとの交差判定を行い、Phongライティングモデルで色を決定するレンダリングパイプラインを実装した。球体・平面・円柱のプリミティブに対応し、再帰レイトレーシング（最大深度5）によって反射・屈折を表現。拡張性を意識した設計により、Diffuseに加えてMirror・Metal・Glassの4種類のマテリアルを実装した。
 
@@ -76,9 +80,7 @@ $ ./miniRT scene/<scene.rt>
 * 週末レイトレーシング 第一週（Peter Shirley著「Ray Tracing in One Weekend」日本語訳） (https://inzkyk.xyz/ray_tracing_in_one_weekend/week_1/)
 
 	* 参考箇所: レイトレーシング全般のアルゴリズム、レイと球の交差判定、Diffuse / Metal / Glass マテリアルの実装、シャドウアクネ対策、再帰レイトレーシングの構造
-	* ファイル名: src/render/ray.c, src/render/intersect_sp.c, src/lighting/calc_secondary_lighting.c, src/math_original/vector3.c
 
 * C言語でレイトレーシングプログラムを作った（JUN's Blog） (https://jun-networks.hatenablog.com/entry/2021/04/02/043216)
 
 	* 参考箇所: `.rt` ファイルのフォーマット、Phong反射モデル（環境光・拡散反射・鏡面反射）の実装、平面・球・円柱の交差判定、影の計算
-	* ファイル名: src/init/, src/lighting/apply_diffuse.c, src/lighting/apply_specular.c, src/render/intersect_pl.c, src/render/intersect_cy.c
