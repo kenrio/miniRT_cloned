@@ -38,7 +38,7 @@ $ make
 ```
 実行：
 ```
-$ ./miniRT <scene.rt>
+$ ./miniRT scene/<scene.rt>
 ```
 
 `.rt` ファイルにシーン情報（カメラ位置、光源、オブジェクト、マテリアル）を記述して指定する。`scene/` ディレクトリにサンプルシーンを同梱
@@ -55,7 +55,7 @@ $ ./miniRT <scene.rt>
 
 	交差判定やライティング計算で数式を実装する際、計算ミスは「画面が真っ黒」「物体の形状が崩れる」「影の出方が不自然になる」といった描画結果の異常として現れる。値の異常を `printf` デバッグで発見しづらく、原因の特定が難しかった。
 
-	対策として、数式をそのまま実装するのではなく、幾何学的な意味に分解して理解した上で実装した。例えばレイと球の交差判定の二次方程式は、「レイ起点から球中心までのベクトル」と「レイの方向ベクトル」の幾何的関係として捉え、判別式が負になる条件＝レイが球と交差しない条件、といった意味から確認した。これにより、描画結果の異常から計算式のどの部分に問題があるかを逆算して特定できるようになり、数学を含む処理のデバッグを効率化した。
+	対策として、数式をそのまま実装するのではなく、幾何学的な意味に分解して理解した上で実装した。これにより、描画結果の異常から計算式のどの部分に問題があるかを逆算して特定できるようになり、数学を含む処理のデバッグを効率化した。
 
 
 ## 工夫・力をいれた点
@@ -63,10 +63,6 @@ $ ./miniRT <scene.rt>
 * 処理を分離したパイプライン設計による拡張性の確保
 
 	レイトレーシングの実装にあたり、「レイ生成 → 交差判定 → ライティング」の各処理を独立したステージとして分離するパイプライン構造を採用した。オブジェクトはタグ付きunion型（`enum t_obj_kind` + `union u_shape`）で多態的に表現し、形状ごとの交差判定関数にディスパッチする設計とした。これにより、新しいプリミティブやマテリアルの追加時に既存コードへの影響を最小化し、各処理のデバッグを個別に実施可能にした。実際にDiffuseに加えてMirror / Metal / Glassの3種類のマテリアルを後から追加できたのは、この設計によるところが大きい。
-
-* 数式を分解し解釈した上で実装に反映
-
-	交差判定やライティング計算では、数式をそのまま実装するのではなく、幾何学的な意味に分解して理解した上で実装した。これにより、描画結果から計算過程を逆算してバグの原因を特定できるようになり、計算を含む処理でも効率的にデバッグを進められた。
 
 * インターフェース設計による並行開発の安定化
 
@@ -77,10 +73,10 @@ $ ./miniRT <scene.rt>
 
 * 週末レイトレーシング 第一週（Peter Shirley著「Ray Tracing in One Weekend」日本語訳） (https://inzkyk.xyz/ray_tracing_in_one_weekend/week_1/)
 
-	参考箇所: レイトレーシング全般のアルゴリズム、レイと球の交差判定、Diffuse / Metal / Glass マテリアルの実装、シャドウアクネ対策、再帰レイトレーシングの構造
-	ファイル名: src/render/ray.c, src/render/intersect_sp.c, src/lighting/calc_secondary_lighting.c, src/math_original/vector3.c
+	* 参考箇所: レイトレーシング全般のアルゴリズム、レイと球の交差判定、Diffuse / Metal / Glass マテリアルの実装、シャドウアクネ対策、再帰レイトレーシングの構造
+	* ファイル名: src/render/ray.c, src/render/intersect_sp.c, src/lighting/calc_secondary_lighting.c, src/math_original/vector3.c
 
 * C言語でレイトレーシングプログラムを作った（JUN's Blog） (https://jun-networks.hatenablog.com/entry/2021/04/02/043216)
 
-	参考箇所: `.rt` ファイルのフォーマット、Phong反射モデル（環境光・拡散反射・鏡面反射）の実装、平面・球・円柱の交差判定、影の計算
-	ファイル名: src/init/, src/lighting/apply_diffuse.c, src/lighting/apply_specular.c, src/render/intersect_pl.c, src/render/intersect_cy.c
+	* 参考箇所: `.rt` ファイルのフォーマット、Phong反射モデル（環境光・拡散反射・鏡面反射）の実装、平面・球・円柱の交差判定、影の計算
+	* ファイル名: src/init/, src/lighting/apply_diffuse.c, src/lighting/apply_specular.c, src/render/intersect_pl.c, src/render/intersect_cy.c
