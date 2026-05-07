@@ -6,7 +6,7 @@
 /*   By: keishii <keishii@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:29:50 by keishii           #+#    #+#             */
-/*   Updated: 2025/05/27 20:11:25 by keishii          ###   ########.fr       */
+/*   Updated: 2026/05/07 19:23:10 by keishii          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define EPS 0.001
 # define GLASS_IRT 1.4
 # define METAL_GROSS 0.9
-# define SP_KS 0.5
-# define SP_SHININESS 0.5
+# define SP_KS 1
+# define SP_SHININESS 32
 
 # define BG_COLOR 0xE4F4F7
 
