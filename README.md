@@ -4,8 +4,8 @@
 
 ---
 
-![](/screenshots/Screenshot%20from%202025-06-30%2017-20-38.png "")
-![](/screenshots/Screenshot%20from%202025-06-30%2017-21-17.png "")
+![Test mirror, glass](/screenshots/Screenshot%20from%202025-06-30%2017-20-38.png "A glass and mirror sphere")
+![Test lights](/screenshots/Screenshot%20from%202025-06-30%2017-21-17.png "Primary colors of light")
 
 ---
 
@@ -26,7 +26,7 @@
 担当範囲：
 * レンダリングのメインループおよびカメラからのレイ生成
 * カメラ座標系の構築（視線ベクトルからright/upベクトルの算出）
-* Phongライティング（環境光・拡散反射・鏡面反射）の実装
+* Phongライティングモデル（環境光・拡散反射・鏡面反射）の実装
 * 球体・平面の交差判定アルゴリズム
 * ベクトル演算・RGB演算の基盤実装
 * minilibxを用いたウィンドウ処理
@@ -78,7 +78,7 @@ $ ./miniRT scene/<scene.rt>
 	レイトレーシングの実装にあたり、「レイ生成 → 交差判定 → ライティング」の各処理を独立したステージとして分離するパイプライン構造を採用した。これにより、新しいプリミティブやマテリアルの追加時に既存コードへの影響を最小化し、各処理のデバッグを個別に実施可能にした。実際にDiffuseに加えてMirror / Metal / Glassの3種類のマテリアルを後から追加できた。
 	* `src/render/render_scene.c`, `ray.c`：ピクセルごとにカメラからレイを生成するメインループ
 	* `src/render/hit_scene.c`：オブジェクトリストへのディスパッチによる交差判定ステージ
-	* `src/lighting/calc_lighting.c`：マテリアル種別による分岐とライティングステージの統括
+	* `src/lighting/calc_lighting.c`：マテリアル種別による分岐と再帰制御
 
 ## 参考にしたソースファイル
 
